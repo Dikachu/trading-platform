@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+    /* Define your base theme variables */
+    --color-primary: #ffdd89;
+
+    @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px); /* Start 20px to the right */
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);    /* End at original position */
+    }
+  }
+
+  /* Define the utility name */
+  --animate-slide-in-right: slideInRight 0.2s ease-out;
+}
+
+/* body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: red;
+    color: #ffffff;
+} */
+
+* {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
