@@ -1,0 +1,404 @@
+{
+  "coins": [
+    {
+      "id": 1,
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "icon": "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=025",
+      "price": 45234.56,
+      "change24h": 2.45
+    },
+    {
+      "id": 2,
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "icon": "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=025",
+      "price": 2456.78,
+      "change24h": -1.23
+    },
+    {
+      "id": 3,
+      "symbol": "USDT",
+      "name": "Tether",
+      "icon": "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=025",
+      "price": 1.0,
+      "change24h": 0.01
+    },
+    {
+      "id": 4,
+      "symbol": "BNB",
+      "name": "Binance Coin",
+      "icon": "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=025",
+      "price": 312.45,
+      "change24h": 3.67
+    },
+    {
+      "id": 5,
+      "symbol": "SOL",
+      "name": "Solana",
+      "icon": "https://cryptologos.cc/logos/solana-sol-logo.svg?v=025",
+      "price": 98.32,
+      "change24h": 5.12
+    },
+    {
+      "id": 6,
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "icon": "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg?v=025",
+      "price": 1.0,
+      "change24h": 0.0
+    },
+    {
+      "id": 7,
+      "symbol": "XRP",
+      "name": "Ripple",
+      "icon": "https://cryptologos.cc/logos/ripple-xrp-logo.svg?v=025",
+      "price": 0.52,
+      "change24h": -2.34
+    },
+    {
+      "id": 8,
+      "symbol": "DOGE",
+      "name": "Dogecoin",
+      "icon": "https://cryptologos.cc/logos/dogecoin-doge-logo.svg?v=025",
+      "price": 0.078,
+      "change24h": 1.89
+    },
+    {
+      "id": 9,
+      "symbol": "TON",
+      "name": "Toncoin",
+      "icon": "https://cryptologos.cc/logos/toncoin-ton-logo.svg?v=025",
+      "price": 2.34,
+      "change24h": 4.56
+    },
+    {
+      "id": 10,
+      "symbol": "TRX",
+      "name": "TRON",
+      "icon": "https://cryptologos.cc/logos/tron-trx-logo.svg?v=025",
+      "price": 0.11,
+      "change24h": 0.92
+    },
+    {
+      "id": 11,
+      "symbol": "ADA",
+      "name": "Cardano",
+      "icon": "https://cryptologos.cc/logos/cardano-ada-logo.svg?v=025",
+      "price": 0.45,
+      "change24h": -0.67
+    },
+    {
+      "id": 12,
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "icon": "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=025",
+      "price": 34.56,
+      "change24h": 2.78
+    },
+    {
+      "id": 13,
+      "symbol": "WBTC",
+      "name": "Wrapped Bitcoin",
+      "icon": "https://cryptologos.cc/logos/wrapped-bitcoin-wbtc-logo.svg?v=025",
+      "price": 45210.34,
+      "change24h": 2.41
+    },
+    {
+      "id": 14,
+      "symbol": "SHIB",
+      "name": "Shiba Inu",
+      "icon": "https://cryptologos.cc/logos/shiba-inu-shib-logo.svg?v=025",
+      "price": 0.000009,
+      "change24h": 3.21
+    },
+    {
+      "id": 15,
+      "symbol": "BCH",
+      "name": "Bitcoin Cash",
+      "icon": "https://cryptologos.cc/logos/bitcoin-cash-bch-logo.svg?v=025",
+      "price": 234.56,
+      "change24h": -1.45
+    },
+    {
+      "id": 16,
+      "symbol": "LINK",
+      "name": "Chainlink",
+      "icon": "https://cryptologos.cc/logos/chainlink-link-logo.svg?v=025",
+      "price": 14.78,
+      "change24h": 1.23
+    },
+    {
+      "id": 17,
+      "symbol": "DOT",
+      "name": "Polkadot",
+      "icon": "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=025",
+      "price": 6.54,
+      "change24h": -2.11
+    },
+    {
+      "id": 18,
+      "symbol": "MATIC",
+      "name": "Polygon",
+      "icon": "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=025",
+      "price": 0.89,
+      "change24h": 4.32
+    },
+    {
+      "id": 19,
+      "symbol": "DAI",
+      "name": "Dai",
+      "icon": "https://cryptologos.cc/logos/multi-collateral-dai-dai-logo.svg?v=025",
+      "price": 1.0,
+      "change24h": 0.01
+    },
+    {
+      "id": 20,
+      "symbol": "LTC",
+      "name": "Litecoin",
+      "icon": "https://cryptologos.cc/logos/litecoin-ltc-logo.svg?v=025",
+      "price": 72.34,
+      "change24h": 1.56
+    },
+    {
+      "id": 21,
+      "symbol": "UNI",
+      "name": "Uniswap",
+      "icon": "https://cryptologos.cc/logos/uniswap-uni-logo.svg?v=025",
+      "price": 6.78,
+      "change24h": -0.89
+    },
+    {
+      "id": 22,
+      "symbol": "ATOM",
+      "name": "Cosmos",
+      "icon": "https://cryptologos.cc/logos/cosmos-atom-logo.svg?v=025",
+      "price": 9.45,
+      "change24h": 2.34
+    },
+    {
+      "id": 23,
+      "symbol": "XLM",
+      "name": "Stellar",
+      "icon": "https://cryptologos.cc/logos/stellar-xlm-logo.svg?v=025",
+      "price": 0.12,
+      "change24h": 1.67
+    },
+    {
+      "id": 24,
+      "symbol": "XMR",
+      "name": "Monero",
+      "icon": "https://cryptologos.cc/logos/monero-xmr-logo.svg?v=025",
+      "price": 156.78,
+      "change24h": -1.23
+    },
+    {
+      "id": 25,
+      "symbol": "ETC",
+      "name": "Ethereum Classic",
+      "icon": "https://cryptologos.cc/logos/ethereum-classic-etc-logo.svg?v=025",
+      "price": 23.45,
+      "change24h": 0.78
+    },
+    {
+      "id": 26,
+      "symbol": "ALGO",
+      "name": "Algorand",
+      "icon": "https://cryptologos.cc/logos/algorand-algo-logo.svg?v=025",
+      "price": 0.34,
+      "change24h": 3.12
+    },
+    {
+      "id": 27,
+      "symbol": "VET",
+      "name": "VeChain",
+      "icon": "https://cryptologos.cc/logos/vechain-vet-logo.svg?v=025",
+      "price": 0.028,
+      "change24h": 2.45
+    },
+    {
+      "id": 28,
+      "symbol": "FIL",
+      "name": "Filecoin",
+      "icon": "https://cryptologos.cc/logos/filecoin-fil-logo.svg?v=025",
+      "price": 5.67,
+      "change24h": -3.21
+    },
+    {
+      "id": 29,
+      "symbol": "HBAR",
+      "name": "Hedera",
+      "icon": "https://cryptologos.cc/logos/hedera-hbar-logo.svg?v=025",
+      "price": 0.067,
+      "change24h": 1.89
+    },
+    {
+      "id": 30,
+      "symbol": "APT",
+      "name": "Aptos",
+      "icon": "https://cryptologos.cc/logos/aptos-apt-logo.svg?v=025",
+      "price": 8.92,
+      "change24h": 5.67
+    },
+    {
+      "id": 31,
+      "symbol": "ARB",
+      "name": "Arbitrum",
+      "icon": "https://cryptologos.cc/logos/arbitrum-arb-logo.svg?v=025",
+      "price": 1.23,
+      "change24h": -1.45
+    },
+    {
+      "id": 32,
+      "symbol": "OP",
+      "name": "Optimism",
+      "icon": "https://cryptologos.cc/logos/optimism-ethereum-op-logo.svg?v=025",
+      "price": 2.34,
+      "change24h": 2.78
+    },
+    {
+      "id": 33,
+      "symbol": "NEAR",
+      "name": "NEAR Protocol",
+      "icon": "https://cryptologos.cc/logos/near-protocol-near-logo.svg?v=025",
+      "price": 3.45,
+      "change24h": 1.23
+    },
+    {
+      "id": 34,
+      "symbol": "GRT",
+      "name": "The Graph",
+      "icon": "https://cryptologos.cc/logos/the-graph-grt-logo.svg?v=025",
+      "price": 0.23,
+      "change24h": -0.56
+    },
+    {
+      "id": 35,
+      "symbol": "AAVE",
+      "name": "Aave",
+      "icon": "https://cryptologos.cc/logos/aave-aave-logo.svg?v=025",
+      "price": 87.65,
+      "change24h": 3.45
+    },
+    {
+      "id": 36,
+      "symbol": "MKR",
+      "name": "Maker",
+      "icon": "https://cryptologos.cc/logos/maker-mkr-logo.svg?v=025",
+      "price": 1567.89,
+      "change24h": 1.78
+    },
+    {
+      "id": 37,
+      "symbol": "SAND",
+      "name": "The Sandbox",
+      "icon": "https://cryptologos.cc/logos/the-sandbox-sand-logo.svg?v=025",
+      "price": 0.45,
+      "change24h": -2.34
+    },
+    {
+      "id": 38,
+      "symbol": "MANA",
+      "name": "Decentraland",
+      "icon": "https://cryptologos.cc/logos/decentraland-mana-logo.svg?v=025",
+      "price": 0.56,
+      "change24h": 1.89
+    },
+    {
+      "id": 39,
+      "symbol": "AXS",
+      "name": "Axie Infinity",
+      "icon": "https://cryptologos.cc/logos/axie-infinity-axs-logo.svg?v=025",
+      "price": 7.89,
+      "change24h": 4.12
+    },
+    {
+      "id": 40,
+      "symbol": "CRV",
+      "name": "Curve DAO",
+      "icon": "https://cryptologos.cc/logos/curve-dao-token-crv-logo.svg?v=025",
+      "price": 0.78,
+      "change24h": -1.23
+    },
+    {
+      "id": 41,
+      "symbol": "SNX",
+      "name": "Synthetix",
+      "icon": "https://cryptologos.cc/logos/synthetix-snx-logo.svg?v=025",
+      "price": 2.67,
+      "change24h": 2.45
+    },
+    {
+      "id": 42,
+      "symbol": "COMP",
+      "name": "Compound",
+      "icon": "https://cryptologos.cc/logos/compound-comp-logo.svg?v=025",
+      "price": 45.67,
+      "change24h": 0.89
+    },
+    {
+      "id": 43,
+      "symbol": "SUSHI",
+      "name": "SushiSwap",
+      "icon": "https://cryptologos.cc/logos/sushiswap-sushi-logo.svg?v=025",
+      "price": 1.23,
+      "change24h": -0.45
+    },
+    {
+      "id": 44,
+      "symbol": "1INCH",
+      "name": "1inch",
+      "icon": "https://cryptologos.cc/logos/1inch-1inch-logo.svg?v=025",
+      "price": 0.45,
+      "change24h": 1.67
+    },
+    {
+      "id": 45,
+      "symbol": "BAT",
+      "name": "Basic Attention Token",
+      "icon": "https://cryptologos.cc/logos/basic-attention-token-bat-logo.svg?v=025",
+      "price": 0.23,
+      "change24h": -1.12
+    },
+    {
+      "id": 46,
+      "symbol": "ENJ",
+      "name": "Enjin Coin",
+      "icon": "https://cryptologos.cc/logos/enjin-coin-enj-logo.svg?v=025",
+      "price": 0.34,
+      "change24h": 2.34
+    },
+    {
+      "id": 47,
+      "symbol": "ZEC",
+      "name": "Zcash",
+      "icon": "https://cryptologos.cc/logos/zcash-zec-logo.svg?v=025",
+      "price": 34.56,
+      "change24h": -0.78
+    },
+    {
+      "id": 48,
+      "symbol": "DASH",
+      "name": "Dash",
+      "icon": "https://cryptologos.cc/logos/dash-dash-logo.svg?v=025",
+      "price": 45.67,
+      "change24h": 1.45
+    },
+    {
+      "id": 49,
+      "symbol": "XTZ",
+      "name": "Tezos",
+      "icon": "https://cryptologos.cc/logos/tezos-xtz-logo.svg?v=025",
+      "price": 1.12,
+      "change24h": 0.89
+    },
+    {
+      "id": 50,
+      "symbol": "EOS",
+      "name": "EOS",
+      "icon": "https://cryptologos.cc/logos/eos-eos-logo.svg?v=025",
+      "price": 0.78,
+      "change24h": -1.56
+    }
+  ]
+}

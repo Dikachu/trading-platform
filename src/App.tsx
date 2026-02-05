@@ -1,24 +1,25 @@
-import React from "react";
-import Header from "./components/layouts/Header";
-import Footer from "./components/layouts/Footer";
+import CardCarousel from "./components/welcome/CardCarousel";
+import { CryptoCarouselSection } from "./components/welcome/CryptoCarouselSection";
+import { CTASection } from "./components/welcome/CTASection";
+import Hero from "./components/welcome/Hero";
+import { JourneySection } from "./components/welcome/JourneySection";
+import MarketOverview from "./components/welcome/MarketOverview";
+import { PortfolioSection } from "./components/welcome/PortfolioSection";
+import { TrustedExchangeSection } from "./components/welcome/TrustedExchangeSection";
 
 const App: React.FC = () => {
+
   return (
-    <div className="min-h-screen bg-black mt-16">
-      <Header />
-
-      {/* Demo Content */}
-      <div className="max-w-[1600px] mx-auto px-4 py-12 h-screen">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">
-            Welcome to BITPLAX
-          </h1>
-          <p className="text-gray-400 text-lg">Your crypto trading platform</p>
-        </div>
-      </div>
-
-      <Footer />
-    </div>
+    <>
+      <Hero />
+      <CardCarousel />
+      <MarketOverview />
+      <PortfolioSection />
+      <JourneySection />
+      <TrustedExchangeSection />
+      <CryptoCarouselSection />
+      <CTASection />
+    </>
   );
 };
 

@@ -1,29 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
-// interface MenuItem {
-//   label: string;
-//   description?: string;
-//   icon?: React.ReactNode;
-//   items?: MenuItem[];
-// }
-
 interface DropdownProps {
   label: string;
-  // items: MenuItem[];
-  // isButton?: boolean;
   hideOnSmallScreen?: boolean;
   trigger?: React.ReactNode;
   customContent: React.ReactNode;
+  closeOnInsideClick?: boolean;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   label,
-  // items,
-  // isButton = false,
   hideOnSmallScreen = false,
   trigger,
   customContent,
+  closeOnInsideClick = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -46,6 +37,17 @@ const Dropdown: React.FC<DropdownProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  const handleContentClick = (e: React.MouseEvent) => {
+    if (!closeOnInsideClick) return;
+    const target = e.target as HTMLElement;
+    const isActionable =
+      target.closest("a") || target.closest("button.closeOnInsideClick"); // || target.closest("Link");
+
+    if (isActionable) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -70,40 +72,11 @@ const Dropdown: React.FC<DropdownProps> = ({
       )}
 
       {isOpen && (
-        <div className="fixed top-16 right-0 bg-black border border-gray-800 rounded-lg z-50 max-w-[300px] w-full animate-slide-in-right p-4">
+        <div
+          onClick={handleContentClick}
+          className="fixed top-16 right-0 bg-black border border-gray-800 z-50 max-w-[300px] w-full animate-slide-in-right p-4"
+        >
           {customContent}
-          {/* {customContent ? (
-            customContent
-          ) : (
-            <div className="py-2">
-              {items.map((item, index) => (
-                <button
-                  key={index}
-                  onClick={() => setIsOpen(false)}
-                  className="w-full px-4 py-3 text-left hover:bg-gray-800/50 transition-colors flex items-start gap-3 group"
-                >
-                  {item.icon && (
-                    <div className="text-2xl flex-shrink-0 mt-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
-                      {item.icon}
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <div className="text-white text-sm font-medium mb-0.5">
-                      {item.label}
-                    </div>
-                    {item.description && (
-                      <div className="text-gray-400 text-xs leading-relaxed">
-                        {item.description}
-                      </div>
-                    )}
-                  </div>
-                  {!item.description && !item.icon && (
-                    <span className="text-gray-500 ml-auto">→</span>
-                  )}
-                </button>
-              ))}
-            </div>
-          )} */}
         </div>
       )}
     </div>

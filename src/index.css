@@ -2,7 +2,7 @@
 
 @theme {
     /* Define your base theme variables */
-    --color-primary: #ffdd89;
+    --color-primary: #ffbe2e;
 
     @keyframes slideInRight {
     from {
@@ -34,6 +34,10 @@
 }
 
 /* Custom scrollbar for better aesthetics */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -50,4 +54,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: #444;
-}
+} */

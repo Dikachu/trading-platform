@@ -15,7 +15,7 @@ const MobileDropdown: React.FC<{
     <div className="mb-3 last:m-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between px-4 py-3 text-white hover:bg-gray-800/50 cursor-pointer ${isOpen ? "bg-primary/10" : ""}`}
+        className="w-full flex items-center justify-between px-4 py-3 text-white hover:bg-gray-800/50 cursor-pointer"
       >
         <div className="flex items-center gap-2">
           {icon && <span>{icon}</span>}

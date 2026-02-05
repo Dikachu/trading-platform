@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, Send } from "lucide-react";
 import Logo from "@/assets/images/logo.png";
 import { NavLink } from "react-router-dom";
+import { SITE_CONFIG } from "@/constants/config";
 
 // Reusable component for the collapsible sections
 const FooterSection = ({
@@ -14,7 +15,7 @@ const FooterSection = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-800 md:border-none">
+    <div className="border-b border-gray-800 md:border-none last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between py-4 md:py-0 md:cursor-default"
@@ -49,13 +50,13 @@ const Footer = () => {
       title: "Trading",
       links: [
         { label: "Markets", href: "/markets" },
-        { label: "Swap", href: "/swap" },
-        { label: "Spot", href: "/spot" },
-        { label: "Margin", href: "/margin" },
-        { label: "Futures", href: "/futures" },
+        { label: "Swap", href: "/assets/swap" },
+        { label: "Spot", href: "/trading/spot" },
+        { label: "Margin", href: "/trading/margin" },
+        // { label: "Futures", href: "/futures" },
         { label: "Tournament", href: "/tournament" },
-        { label: "P2P", href: "/p2p" },
-        { label: "Buy Crypto", href: "/buy-crypto" },
+        { label: "P2P", href: "/assets/deposit" },
+        // { label: "Buy Crypto", href: "/buy-crypto" },
       ],
     },
     {
@@ -96,10 +97,15 @@ const Footer = () => {
           <div className="flex flex-col items-start md:flex-shrink-0">
             <NavLink to="/" className="flex items-center gap-2 mb-6">
               <img src={Logo} alt="Logo" className="h-10 w-auto" />
-              <span className="text-white font-bold text-2xl">ALTARB</span>
+              <span className="text-white font-bold text-2xl">
+                {SITE_CONFIG.name}
+              </span>
             </NavLink>
             <div className="flex gap-3">
-              <a href="https://t.me/+2349130463310" className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+              <a
+                href="https://t.me/+2349130463310"
+                className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center"
+              >
                 <Send className="w-5 h-5 text-white" />
               </a>
             </div>
@@ -119,7 +125,7 @@ const Footer = () => {
 
         <div className="pt-8 border-t border-gray-800">
           <p className="text-center text-gray-400 text-sm">
-            © {new Date().getFullYear()} ALTARB | All rights reserved
+            © {new Date().getFullYear()} {SITE_CONFIG.name} | All rights reserved
           </p>
         </div>
       </div>

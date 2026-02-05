@@ -1,68 +1,93 @@
-// import React, { useState } from "react";
-import { Menu, ArrowDownToLine, EyeClosed, ArrowUpToLine, ChevronRight, TrendingUp, Scroll, CircleHelp, CreditCard, FileText } from "lucide-react";
+import {
+  Menu,
+  ArrowDownToLine,
+  EyeClosed,
+  ArrowUpToLine,
+  ChevronRight,
+  TrendingUp,
+  Scroll,
+  CircleHelp,
+  CreditCard,
+  FileText,
+} from "lucide-react";
 import Dropdown from "../ui/Dropdown";
 import type { MenuItem } from "@/types/types";
 import { MobileDropdown } from "../ui/MobileDropdown";
-import { NavLink } from "react-router-dom";
-import Logo from "@/assets/images/logo.png"
-import Avatar from "@/assets/images/avatar.svg"
-
-
+import { NavLink, useNavigate } from "react-router-dom";
+import Logo from "@/assets/images/logo.png";
+import Avatar from "@/assets/images/avatar.svg";
+import { SITE_CONFIG } from "@/constants/config";
+import { Button } from "../ui/Button";
+import { useState } from "react";
 
 const Header: React.FC = () => {
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigator = useNavigate();
+  const [selectedLanguage, setSelectedLanguage] = useState("EN");
 
   const tradingItems: MenuItem[] = [
     {
-      label: "Markets"
+      label: "Markets",
+      path: "/markets",
     },
     {
       label: "Swap",
+      path: "/assets/swap",
     },
     {
       label: "Spot",
+      path: "/trading/spot",
     },
     {
       label: "Margin",
+      path: "/trading/margin",
     },
     {
       label: "Tournament",
+      path: "/tournament",
     },
   ];
 
   const futuresItems: MenuItem[] = [
     {
       label: "USDT Perpetuals",
+      path: "/futures/usdt-perpetuals",
     },
   ];
-  
+
   const earnItems: MenuItem[] = [
     {
       label: "Staking",
+      path: "/staking",
     },
     {
       label: "Crypto Lending",
+      path: "/crypto-lending",
     },
   ];
 
   const buyCryptoItems: MenuItem[] = [
     {
       label: "Fiat Deposit",
+      path: "/assets/deposit",
     },
     {
       label: "P2P Trading",
+      path: "/assets/deposit",
     },
   ];
 
   const documentationItems: MenuItem[] = [
     {
       label: "User Agreement",
+      path: "/user-agreement",
     },
     {
       label: "AML Policy",
+      path: "/aml-policy",
     },
     {
       label: "Privacy Policy",
+      path: "/privacy-policy",
     },
   ];
 
@@ -76,26 +101,30 @@ const Header: React.FC = () => {
             className="flex items-center justify-center flex-shrink-0 gap-2"
           >
             <img src={Logo} alt="Altarb Logo" className="h-8 w-auto" />
-            <span className="text-white font-bold text-xl">ALTARB</span>
+            <span className="text-white font-bold text-xl">
+              {SITE_CONFIG.name}
+            </span>
           </NavLink>
-
-          {/* Desktop Navigation */}
-          {/* <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
-            <Dropdown label="Trading" items={tradingItems} />
-            <Dropdown label="Futures" items={futuresItems} />
-            <Dropdown label="Tools" items={toolsItems} />
-            <Dropdown label="Earn" items={earnItems} />
-            <Dropdown label="Buy Crypto" items={buyCryptoItems} />
-            <Dropdown label="Documentation" items={documentationItems} />
-          </nav> */}
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            {/* Deposit Button - Hidden on small screens */}
-            <button className="hidden sm:flex items-center gap-2 bg-primary hover:bg-primary/90 text-xs text-black font-medium px-4 py-2 rounded cursor-pointer">
+            {/* What to show if user is not logged in */}
+            {/* <div className="hidden md:flex items-center gap-2">
+              <Button variant="primary" to="/login">
+                Log In
+              </Button>
+              <Button variant="outline" to="/register">
+                Sign Up
+              </Button>
+            </div> */}
+
+            <NavLink
+              to="/assets/deposit"
+              className="hidden sm:flex items-center gap-2 bg-primary hover:bg-primary/90 text-xs text-black font-medium px-4 py-2 rounded cursor-pointer"
+            >
               <ArrowDownToLine size={15} />
               Deposit
-            </button>
+            </NavLink>
 
             {/* Assets Dropdown */}
             <Dropdown
@@ -121,14 +150,20 @@ const Header: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex gap-2 mb-4">
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded text-sm cursor-pointer">
+                    <NavLink
+                      to="/assets/deposit"
+                      className="flex-1 flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded text-sm cursor-pointer"
+                    >
                       <ArrowDownToLine className="w-4 h-4" />
                       Deposit
-                    </button>
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded text-sm cursor-pointer">
+                    </NavLink>
+                    <NavLink
+                      to="/assets/withdraw"
+                      className="flex-1 flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white py-2 px-3 rounded text-sm cursor-pointer"
+                    >
                       <ArrowUpToLine className="w-4 h-4" />
                       Withdraw
-                    </button>
+                    </NavLink>
                   </div>
                   <div className="space-y-3 border-t border-gray-800 pt-3">
                     {[
@@ -169,7 +204,7 @@ const Header: React.FC = () => {
                     { label: "Earnings", value: "earnings" },
                   ].map((item) => (
                     <NavLink
-                      to={`/history?view=${item.value}`}
+                      to={`/transaction/${item.value}`}
                       key={item.value}
                       className="group flex items-center justify-between mb-1 last:m-0 w-full p-2 text-left hover:bg-gray-800/50 text-sm text-white"
                     >
@@ -198,7 +233,10 @@ const Header: React.FC = () => {
               }
               customContent={
                 <div className="w-full">
-                  <div className="p-4 border-b border-gray-800 cursor-pointer hover:bg-gray-800/50 p-2 rounded mb-3">
+                  <div
+                    onClick={() => navigator("/profile/settings")}
+                    className="p-4 border-b border-gray-800 cursor-pointer hover:bg-gray-800/50 p-2 rounded mb-3"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer">
                         <img
@@ -227,17 +265,17 @@ const Header: React.FC = () => {
                   </div>
                   <div className="py-2">
                     {[
-                      { label: "Wallet", path: "/profile/wallets" },
+                      // { label: "Wallet", path: "/assets/overview" },
                       { label: "Settings", path: "profile/settings" },
                       { label: "Security", path: "profile/security" },
                       {
                         label: "Identity Verification",
-                        path: "profile/identity",
+                        path: "profile/identity-verification",
                       },
                       { label: "Promo codes", path: "profile/promo-codes" },
                       {
                         label: "Referral program",
-                        path: "profile/referral=program",
+                        path: "profile/referral-program",
                       },
                     ].map((item) => (
                       <NavLink
@@ -264,7 +302,7 @@ const Header: React.FC = () => {
 
             {/* Language Dropdown */}
             <Dropdown
-              label="EN"
+              label={selectedLanguage}
               customContent={
                 <div className="w-full">
                   {[
@@ -280,7 +318,8 @@ const Header: React.FC = () => {
                   ].map((lang) => (
                     <button
                       key={lang.code}
-                      className="flex items-center gap-3 mb-3 last:m-0 px-3 py-2 hover:bg-gray-900 w-full rounded cursor-pointer"
+                      onClick={() => setSelectedLanguage(lang.code)}
+                      className="closeOnInsideClick flex items-center gap-3 mb-3 last:m-0 px-3 py-2 hover:bg-gray-900 w-full rounded cursor-pointer"
                     >
                       <span className="text-xs font-medium text-white px-2 py-1 bg-gray-800 rounded">
                         {lang.code}
@@ -302,7 +341,7 @@ const Header: React.FC = () => {
               }
               customContent={
                 <div className="w-full">
-                  <nav className="space-y-1 h-auto max-h-[80vh] overflow-y-auto">
+                  <nav className="space-y-1 h-auto max-h-[80vh] overflow-y-auto hide-scrollbar">
                     <MobileDropdown
                       label="Trading"
                       items={tradingItems}
@@ -313,7 +352,11 @@ const Header: React.FC = () => {
                       items={futuresItems}
                       icon={<Scroll />}
                     />
-                    <MobileDropdown label="Earn" items={earnItems} icon={<CircleHelp />} />
+                    <MobileDropdown
+                      label="Earn"
+                      items={earnItems}
+                      icon={<CircleHelp />}
+                    />
                     <MobileDropdown
                       label="Buy Crypto"
                       items={buyCryptoItems}
@@ -328,39 +371,8 @@ const Header: React.FC = () => {
                 </div>
               }
             />
-            {/* <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-white hover:bg-gray-800 rounded"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button> */}
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {/* {mobileMenuOpen && (
-          <div className="py-4 border-t border-gray-800 max-h-[calc(100vh-64px)] overflow-y-auto">
-            <nav className="space-y-1">
-              <MobileDropdown label="Trading" items={tradingItems} icon="📊" />
-              <MobileDropdown label="Futures" items={futuresItems} icon="💱" />
-              <MobileDropdown label="Earn" items={earnItems} icon="💰" />
-              <MobileDropdown
-                label="Buy Crypto"
-                items={buyCryptoItems}
-                icon="💳"
-              />
-              <MobileDropdown
-                label="Documentation"
-                items={documentationItems}
-                icon="📄"
-              />
-            </nav>
-          </div>
-        )} */}
       </div>
     </header>
   );
