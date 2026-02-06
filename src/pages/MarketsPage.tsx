@@ -1,181 +1,178 @@
-// import React, { useState } from "react";
-// import { Star, TrendingUp } from "lucide-react";
-// import { Tabs } from "../components/Tabs";
-// import { SearchInput } from "../components/SearchInput";
-// import { DataTable } from "../components/DataTable";
-// import { CryptoIcon } from "../components/CryptoIcon";
-// import { Button } from "../components/Button";
-// import { Toggle } from "../components/Toggle";
+import { useState } from "react";
+import { Star } from "lucide-react";
+import { DataTable, type Column } from "@/components/ui/DataTable";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { Tabs } from "@/components/ui/Tabs";
+import { Toggle } from "@/components/ui/Toggle";
+import { Button } from "@/components/ui/Button";
+import cryptoData from "@/data/cryptoData.json";
 
-// const marketData = [
-//   {
-//     pair: "BTC / USDT",
-//     symbol: "BTC",
-//     lastPrice: "$78587.44",
-//     change24h: 2.99,
-//     high24h: "$79360",
-//     low24h: "$74604",
-//     volume: "306,803,104.00 (USDT)",
-//     isFavorite: false,
-//   },
-//   {
-//     pair: "ETH / USDT",
-//     symbol: "ETH",
-//     lastPrice: "$2531.1",
-//     change24h: 3.65,
-//     high24h: "$2604.4",
-//     low24h: "$2344.16",
-//     volume: "284,223,590.00 (USDT)",
-//     isFavorite: false,
-//   },
-//   {
-//     pair: "BNB / USDT",
-//     symbol: "BNB",
-//     lastPrice: "$770.76",
-//     change24h: 3.12,
-//     high24h: "$781.58",
-//     low24h: "$728.44",
-//     volume: "217,116,05.00 (USDT)",
-//     isFavorite: false,
-//   },
-//   {
-//     pair: "SOL / USDT",
-//     symbol: "SOL",
-//     lastPrice: "$103.86",
-//     change24h: 3.85,
-//     high24h: "$106.12",
-//     low24h: "$95.95",
-//     volume: "511,530,46.00 (USDT)",
-//     isFavorite: false,
-//   },
-//   {
-//     pair: "USDC / USDT",
-//     symbol: "USDC",
-//     lastPrice: "$1",
-//     change24h: -0.01,
-//     high24h: "$1.001",
-//     low24h: "$1.0003",
-//     volume: "261,463,860.00 (USDT)",
-//     isFavorite: false,
-//   },
-// ];
+interface MarketCrypto {
+  id: number;
+  symbol: string;
+  name: string;
+  icon: string;
+  pair: string;
+  lastPrice: string;
+  change24h: number;
+  high24h: string;
+  low24h: string;
+  volume24h: string;
+  isFavorite?: boolean;
+}
 
-// export default function MarketsPage() {
-//   const [activeTab, setActiveTab] = useState("all");
-//   const [searchTerm, setSearchTerm] = useState("");
-//   const [showVisualization, setShowVisualization] = useState(true);
+export function MarketsPage() {
+  const [activeTab, setActiveTab] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [visualization, setVisualization] = useState(false);
 
-//   const columns = [
-//     {
-//       key: "pair",
-//       header: "Trading Pairs",
-//       render: (item: any) => (
-//         <div className="flex items-center gap-3">
-//           <button className="text-gray-400 hover:text-yellow-500">
-//             <Star className="w-4 h-4" />
-//           </button>
-//           <CryptoIcon symbol={item.symbol} size="sm" />
-//           <span className="font-medium">{item.pair}</span>
-//         </div>
-//       ),
-//     },
-//     {
-//       key: "lastPrice",
-//       header: "Last Price",
-//       render: (item: any) => (
-//         <span className="font-medium">{item.lastPrice}</span>
-//       ),
-//     },
-//     {
-//       key: "change24h",
-//       header: "24H Change %",
-//       render: (item: any) => (
-//         <span
-//           className={`font-medium ${
-//             item.change24h >= 0 ? "text-green-500" : "text-red-500"
-//           }`}
-//         >
-//           {item.change24h >= 0 ? "+" : ""}
-//           {item.change24h}%
-//         </span>
-//       ),
-//     },
-//     { key: "high24h", header: "24H High" },
-//     { key: "low24h", header: "24H Low" },
-//     { key: "volume", header: "24H Volume" },
-//     {
-//       key: "action",
-//       header: "Crypto Markets",
-//       render: () => (
-//         <Button variant="outline" size="sm">
-//           Trade
-//         </Button>
-//       ),
-//     },
-//   ];
+  // Transform crypto data to market data
+  const marketData: MarketCrypto[] = cryptoData.coins.map((crypto) => ({
+    id: crypto.id,
+    symbol: crypto.symbol,
+    name: crypto.name,
+    icon: crypto.icon,
+    pair: `${crypto.symbol} / USDT`,
+    lastPrice: `$${crypto.price.toLocaleString()}`,
+    change24h: crypto.change24h,
+    high24h: `$${(crypto.price * 1.05).toLocaleString()}`,
+    low24h: `$${(crypto.price * 0.95).toLocaleString()}`,
+    volume24h: `${(Math.random() * 1000000).toFixed(2)} (USDT)`,
+    isFavorite: false,
+  }));
 
-//   return (
-//     <div className="min-h-screen bg-gray-50">
-//       <div className="max-w-7xl mx-auto px-8 py-8">
-//         <h1 className="text-3xl font-bold mb-8">Markets</h1>
+  const tabs = [
+    { key: "favorites", label: "Favorites" },
+    { key: "spot", label: "Spot" },
+    { key: "futures", label: "Futures" },
+  ];
 
-//         <div className="flex items-center gap-4 mb-6">
-//           <Tabs
-//             tabs={[
-//               { key: "favorites", label: "Favorites" },
-//               { key: "spot", label: "Spot" },
-//               { key: "futures", label: "Futures" },
-//             ]}
-//             activeTab={activeTab}
-//             onChange={setActiveTab}
-//             variant="underline"
-//           />
+  const subTabs = [
+    { key: "all", label: "All" },
+    { key: "crypto", label: "Crypto" },
+    { key: "stable", label: "State Currencies" },
+  ];
 
-//           <SearchInput
-//             value={searchTerm}
-//             onChange={setSearchTerm}
-//             placeholder="Search"
-//             className="ml-auto w-64"
-//           />
-//         </div>
+  const columns: Column<MarketCrypto>[] = [
+    {
+      key: "pair",
+      header: "Trading Pairs",
+      render: (item) => (
+        <div className="flex items-center gap-3">
+          <button className="text-gray-400 hover:text-yellow-500 transition-colors">
+            <Star className="w-4 h-4" />
+          </button>
+          <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
+            <img
+              src={item.icon}
+              alt={item.symbol}
+              className="w-6 h-6 object-contain"
+            />
+          </div>
+          <div className="font-semibold text-gray-900">{item.pair}</div>
+        </div>
+      ),
+    },
+    {
+      key: "lastPrice",
+      header: "Last Price",
+      render: (item) => (
+        <span className="font-medium text-gray-900">{item.lastPrice}</span>
+      ),
+    },
+    {
+      key: "change24h",
+      header: "24H Change %",
+      render: (item) => (
+        <span
+          className={`font-medium ${
+            item.change24h >= 0 ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {item.change24h >= 0 ? "+" : ""}
+          {item.change24h.toFixed(2)}%
+        </span>
+      ),
+    },
+    {
+      key: "high24h",
+      header: "24H High",
+      render: (item) => <span className="text-gray-900">{item.high24h}</span>,
+    },
+    {
+      key: "low24h",
+      header: "24H Low",
+      render: (item) => <span className="text-gray-900">{item.low24h}</span>,
+    },
+    {
+      key: "volume24h",
+      header: "24H Volume",
+      render: (item) => <span className="text-gray-900">{item.volume24h}</span>,
+    },
+    {
+      key: "actions",
+      header: "Crypto Markets",
+      render: () => (
+        <Button variant="outline" size="sm" className="text-xs px-4">
+          Trade
+        </Button>
+      ),
+    },
+  ];
 
-//         <div className="bg-white rounded-lg border border-gray-200">
-//           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-//             <div className="flex gap-6">
-//               {["All", "Crypto", "State Currencies"].map((tab) => (
-//                 <button
-//                   key={tab}
-//                   className={`text-sm font-medium ${
-//                     tab === "All"
-//                       ? "text-gray-900"
-//                       : "text-gray-500 hover:text-gray-700"
-//                   }`}
-//                 >
-//                   {tab}
-//                   {tab === "State Currencies" && (
-//                     <span className="ml-2 px-2 py-0.5 bg-gray-900 text-white text-xs rounded">
-//                       Soon
-//                     </span>
-//                   )}
-//                 </button>
-//               ))}
-//             </div>
+  return (
+    <div className="min-h-screen bg-gray-50 py-8 md:py-12">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
+            Markets
+          </h1>
 
-//             <Toggle
-//               enabled={showVisualization}
-//               onChange={setShowVisualization}
-//               label="Visualization"
-//             />
-//           </div>
+          {/* Main Tabs */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <Tabs
+              tabs={tabs}
+              activeTab={activeTab}
+              onChange={setActiveTab}
+              variant="underline"
+            />
 
-//           <DataTable
-//             columns={columns}
-//             data={marketData}
-//             paginate
-//             itemsPerPage={10}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="Search"
+              className="md:w-64"
+            />
+          </div>
+
+          {/* Sub Tabs and Visualization Toggle */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <Tabs
+              tabs={subTabs}
+              activeTab={activeTab}
+              onChange={setActiveTab}
+              variant="pills"
+            />
+
+            <Toggle
+              enabled={visualization}
+              onChange={setVisualization}
+              label="Visualization"
+            />
+          </div>
+        </div>
+
+        {/* Markets Table */}
+        <DataTable
+          columns={columns}
+          data={marketData}
+          paginate={true}
+          itemsPerPage={25}
+          emptyStateMessage="No markets available"
+          searchQuery={searchQuery}
+        />
+      </div>
+    </div>
+  );
+}

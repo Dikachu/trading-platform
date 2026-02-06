@@ -6,18 +6,20 @@ import { JourneySection } from "./components/welcome/JourneySection";
 import MarketOverview from "./components/welcome/MarketOverview";
 import { PortfolioSection } from "./components/welcome/PortfolioSection";
 import { TrustedExchangeSection } from "./components/welcome/TrustedExchangeSection";
+import { useCoins } from "./hooks/useCoins";
 
 const App: React.FC = () => {
+  const { coins, loading } = useCoins();
 
   return (
     <>
       <Hero />
       <CardCarousel />
-      <MarketOverview />
+      <MarketOverview marketData={coins.slice(0, 20)} loading={loading} />
       <PortfolioSection />
       <JourneySection />
       <TrustedExchangeSection />
-      <CryptoCarouselSection />
+      <CryptoCarouselSection coins={coins} />
       <CTASection />
     </>
   );

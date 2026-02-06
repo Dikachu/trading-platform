@@ -1,419 +1,48 @@
-import { useState } from "react";
-import { Download } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Download, Loader } from "lucide-react";
 import { DataTable, type Column } from "@/components/ui/DataTable";
 import { CryptoIconWithLabel } from "@/components/ui/CryptoIconWithLabel";
 import { Button } from "@/components/ui/Button";
 import { SearchInput } from "@/components/ui/SearchInput";
+import type { Asset } from "@/types/types";
+import { useAssets } from "@/hooks/useAssets";
+import { useCoins } from "@/hooks/useCoins";
+import balances from "@/data/balances.json";
 
-interface Asset {
-  icon: string;
-  symbol: string;
-  name: string;
-  overall: number;
-  overallUsd: number;
-  main: number;
-  mainUsd: number;
-  trade: number;
-  tradeUsd: number;
-  collateral: number;
-  collateralUsd: number;
-}
-
-const mockAssets: Asset[] = [
-  {
-    icon: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=025",
-    symbol: "BTC",
-    name: "Bitcoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=025",
-    symbol: "ETH",
-    name: "Ethereum",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=025",
-    symbol: "USDT",
-    name: "Tether",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=025",
-    symbol: "BNB",
-    name: "Binance",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=025",
-    symbol: "SOL",
-    name: "Solana",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg?v=025",
-    symbol: "USDC",
-    name: "USD Coin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/ripple-xrp-logo.svg?v=025",
-    symbol: "XRP",
-    name: "Ripple",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/dogecoin-doge-logo.svg?v=025",
-    symbol: "DOGE",
-    name: "Dogecoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/toncoin-ton-logo.svg?v=025",
-    symbol: "TON",
-    name: "Toncoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/tron-trx-logo.svg?v=025",
-    symbol: "TRX",
-    name: "TRON",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/cardano-ada-logo.svg?v=025",
-    symbol: "ADA",
-    name: "Cardano",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=025",
-    symbol: "AVAX",
-    name: "Avalanche",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/wrapped-bitcoin-wbtc-logo.svg?v=025",
-    symbol: "WBTC",
-    name: "Wrapped Bitcoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/shiba-inu-shib-logo.svg?v=025",
-    symbol: "SHIB",
-    name: "Shiba Inu",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/bitcoin-cash-bch-logo.svg?v=025",
-    symbol: "BCH",
-    name: "Bitcoin Cash",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=025",
-    symbol: "BTC",
-    name: "Bitcoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=025",
-    symbol: "ETH",
-    name: "Ethereum",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/tether-usdt-logo.svg?v=025",
-    symbol: "USDT",
-    name: "Tether",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/bnb-bnb-logo.svg?v=025",
-    symbol: "BNB",
-    name: "Binance",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/solana-sol-logo.svg?v=025",
-    symbol: "SOL",
-    name: "Solana",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg?v=025",
-    symbol: "USDC",
-    name: "USD Coin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/ripple-xrp-logo.svg?v=025",
-    symbol: "XRP",
-    name: "Ripple",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/dogecoin-doge-logo.svg?v=025",
-    symbol: "DOGE",
-    name: "Dogecoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/toncoin-ton-logo.svg?v=025",
-    symbol: "TON",
-    name: "Toncoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/tron-trx-logo.svg?v=025",
-    symbol: "TRX",
-    name: "TRON",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/cardano-ada-logo.svg?v=025",
-    symbol: "ADA",
-    name: "Cardano",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=025",
-    symbol: "AVAX",
-    name: "Avalanche",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/wrapped-bitcoin-wbtc-logo.svg?v=025",
-    symbol: "WBTC",
-    name: "Wrapped Bitcoin",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/shiba-inu-shib-logo.svg?v=025",
-    symbol: "SHIB",
-    name: "Shiba Inu",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-  {
-    icon: "https://cryptologos.cc/logos/bitcoin-cash-bch-logo.svg?v=025",
-    symbol: "BCH",
-    name: "Bitcoin Cash",
-    overall: 0.0,
-    overallUsd: 0.0,
-    main: 0.0,
-    mainUsd: 0.0,
-    trade: 0.0,
-    tradeUsd: 0.0,
-    collateral: 0.0,
-    collateralUsd: 0.0,
-  },
-];
 
 export default function AssetOverviewPage() {
+  const {coins, loading} = useCoins();
+  const assets: Asset[] = useAssets({ coins, balances });
   const [searchQuery, setSearchQuery] = useState("");
+
+  const sortedAssets = useMemo(() => {
+    if (!assets) return [];
+
+    return [...assets].sort((a, b) => {
+      // 1. Check if they have a balance
+      const hasBalanceA = a.overallUsd > 0;
+      const hasBalanceB = b.overallUsd > 0;
+
+      // 2. If both have balances, sort by USD value (highest first)
+      if (hasBalanceA && hasBalanceB) {
+        return b.overallUsd - a.overallUsd;
+      }
+
+      // 3. If only A has a balance, move it to the top
+      if (hasBalanceA) return -1;
+
+      // 4. If only B has a balance, move it to the top
+      if (hasBalanceB) return 1;
+
+      // 5. If neither has a balance, keep their original order (Market Rank)
+      return 0;
+    });
+  }, [assets]);
+  
+
+  if (loading) {
+    return <Loader />;
+  };
 
   const columns: Column<Asset>[] = [
     {
@@ -421,7 +50,7 @@ export default function AssetOverviewPage() {
       header: "Assets",
       render: (item) => (
         <CryptoIconWithLabel
-          icon={item.icon}
+          icon={item.image}
           symbol={item.symbol}
           name={item.name}
         />
@@ -540,7 +169,7 @@ export default function AssetOverviewPage() {
       <div className="bg-white rounded-lg border border-gray-200">
         <DataTable
           columns={columns}
-          data={mockAssets}
+          data={sortedAssets}
           searchQuery={searchQuery}
           paginate
           itemsPerPage={10}

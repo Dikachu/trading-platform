@@ -61,7 +61,7 @@ const Header: React.FC = () => {
     },
     {
       label: "Crypto Lending",
-      path: "/crypto-lending",
+      path: "/earn",
     },
   ];
 

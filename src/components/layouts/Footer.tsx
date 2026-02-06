@@ -62,21 +62,21 @@ const Footer = () => {
     {
       title: "Support",
       links: [
-        { label: "About Us", href: "/about" },
-        { label: "Verify Official Channels", href: "/verify" },
+        { label: "About Us", href: "/about-us" },
+        { label: "Verify Official Channels", href: "/channel-verification" },
         { label: "Fees", href: "/fees" },
         { label: "Bug Bounty", href: "/bug-bounty" },
-        { label: "Corporate Identity", href: "/corporate" },
-        { label: "Institutional Services", href: "/institutional" },
+        { label: "Corporate Identity", href: "/corporate-identity" },
+        { label: "Institutional Services", href: "/institutional-services" },
       ],
     },
     {
       title: "Products",
       links: [
         { label: "Staking", href: "/staking" },
-        { label: "Crypto Lending", href: "/lending" },
-        { label: "Referral Program", href: "/referral" },
-        { label: "Token Listing", href: "/token-listing" },
+        { label: "Crypto Lending", href: "/earn" },
+        { label: "Referral Program", href: "/profile/referral-program" },
+        // { label: "Token Listing", href: "/token-listing" },
       ],
     },
     {

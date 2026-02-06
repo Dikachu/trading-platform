@@ -1,6 +1,6 @@
 interface CryptoToken {
   name: string;
-  icon: string;
+  image: string;
 }
 
 interface CarouselProps {
@@ -36,44 +36,14 @@ export function Carousel({
             className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full whitespace-nowrap flex-shrink-0"
           >
             <img
-              src={item.icon}
+              src={item.image}
               alt={item.name}
-              className="w-5 h-5 object-contain"
+              className="w-7 h-7 object-contain rounded-full"
             />
             <span className="text-sm font-medium">{item.name}</span>
           </div>
         ))}
       </div>
-
-      <style>{`
-        @keyframes scroll-left {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-
-        @keyframes scroll-right {
-          0% {
-            transform: translateX(-33.333%);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-
-        .scroll-left,
-        .scroll-right {
-          will-change: transform;
-        }
-
-        .scroll-left:hover,
-        .scroll-right:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </div>
   );
 }

@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-    /* Define your base theme variables */
-    --color-primary: #ffbe2e;
+  /* Define your base theme variables */
+  --color-primary: #ffbe2e;
 
-    @keyframes slideInRight {
+  @keyframes slideInRight {
     from {
       opacity: 0;
       transform: translateX(20px); /* Start 20px to the right */
     }
     to {
       opacity: 1;
-      transform: translateX(0);    /* End at original position */
+      transform: translateX(0); /* End at original position */
     }
   }
 
@@ -30,28 +30,56 @@
 } */
 
 * {
-    transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 /* Custom scrollbar for better aesthetics */
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a1a;
+  background: #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
+  background: #333;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #444;
-} */
+  background: #444;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.scroll-left,
+.scroll-right {
+  will-change: transform;
+}
+
+.scroll-left:hover,
+.scroll-right:hover {
+  animation-play-state: paused !important;
+}

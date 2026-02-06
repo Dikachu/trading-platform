@@ -2,78 +2,16 @@ import { DataTable, type Column } from "../ui/DataTable";
 import { SITE_CONFIG } from "@/constants/config";
 import { Button } from "../ui/Button";
 import { ArrowUp } from "lucide-react";
+import type { Coin } from "@/types/types";
+import Loader from "../ui/Loader";
 
-// Define the data interface based on the image
-interface CoinData {
-  id: string;
-  name: string;
-  lastPrice: string;
-  change24h: number;
-  icon: string;
-}
+const MarketOverview: React.FC<{ marketData: Coin[]; loading: boolean }> = ({ marketData, loading }) => {
+  
+  if(loading) {
+    return <Loader />
+  }
 
-const MarketOverview: React.FC = () => {
-  // Hand-coded data from the screenshot
-  const marketData: CoinData[] = [
-    {
-      id: "1",
-      name: "BTC/USDT",
-      lastPrice: "76714.84",
-      change24h: -2.33,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "2",
-      name: "ETH/USDT",
-      lastPrice: "2278.94",
-      change24h: -1.8,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "3",
-      name: "BNB/USDT",
-      lastPrice: "762.61",
-      change24h: -1.98,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "4",
-      name: "SOL/USDT",
-      lastPrice: "105.36",
-      change24h: -5.78,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "5",
-      name: "XRP/USDT",
-      lastPrice: "1.6025",
-      change24h: -0.63,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "6",
-      name: "DOGE/USDT",
-      lastPrice: "0.10855",
-      change24h: 1.61,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "7",
-      name: "TON/USDT",
-      lastPrice: "1.396",
-      change24h: 2.19,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-    {
-      id: "8",
-      name: "TRX/USDT",
-      lastPrice: "0.2872",
-      change24h: 1.27,
-      icon: "/images/crypto-icons/BTC.png",
-    },
-  ];
-
-  const columns: Column<CoinData>[] = [
+  const columns: Column<Coin>[] = [
     {
       header: "Name",
       key: "name",
@@ -81,7 +19,7 @@ const MarketOverview: React.FC = () => {
       render: (item) => (
         <div className="flex items-center gap-3">
           <img
-            src={item.icon}
+            src={item.image}
             alt={item.name}
             className="w-8 h-8 rounded-full"
           />
@@ -93,7 +31,9 @@ const MarketOverview: React.FC = () => {
       header: "Last Price",
       key: "lastPrice",
       render: (item) => (
-        <span className="font-semibold text-gray-700">${item.lastPrice}</span>
+        <span className="font-semibold text-gray-700">
+          ${item.current_price.toLocaleString()}
+        </span>
       ),
     },
     {
@@ -101,10 +41,10 @@ const MarketOverview: React.FC = () => {
       key: "change24h",
       render: (item) => (
         <span
-          className={`font-medium ${item.change24h >= 0 ? "text-green-500" : "text-red-500"}`}
+          className={`font-medium ${item.price_change_percentage_24h >= 0 ? "text-green-500" : "text-red-500"}`}
         >
-          {item.change24h >= 0 ? "+" : ""}
-          {item.change24h}%
+          {item.price_change_percentage_24h >= 0 ? "+" : ""}
+          {item.price_change_percentage_24h}%
         </span>
       ),
     },
@@ -119,7 +59,11 @@ const MarketOverview: React.FC = () => {
       key: "operation",
       className: "text-right",
       render: (item) => (
-        <Button variant="secondary" to={`profile/trading?action=${item.name.split("/")[0].toLowerCase()}`} size="sm">
+        <Button
+          variant="secondary"
+          to={`profile/trading?action=${item.name.split("/")[0].toLowerCase()}`}
+          size="sm"
+        >
           Trade
         </Button>
       ),
@@ -147,13 +91,20 @@ const MarketOverview: React.FC = () => {
           <DataTable
             columns={columns}
             data={marketData}
-            paginate={false} 
+            paginate={false}
             className="px-2"
           />
 
           {/* Footer Link */}
           <div className="py-4 border-t border-gray-50 flex justify-center">
-            <Button variant="outline" icon={ArrowUp} iconPosition="right" to="/profile/markets">View more</Button>
+            <Button
+              variant="outline"
+              icon={ArrowUp}
+              iconPosition="right"
+              to="/assets/overview"
+            >
+              View more
+            </Button>
           </div>
         </div>
       </div>

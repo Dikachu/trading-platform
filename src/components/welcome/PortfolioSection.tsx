@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { Card } from "../ui/Card";
+import SpotImage from "@/assets/images/portfolio/spot.png";
+import PerpetualImage from "@/assets/images/portfolio/perpetual.png";
+import CopyTradingImage from "@/assets/images/portfolio/copy_trading.png";
 
 interface PortfolioOption {
   title: string;
@@ -15,21 +18,21 @@ export function PortfolioSection() {
       title: "Spot",
       description: "Hundreds of cryptos to choose from. Easy to Trade.",
       cta: "Trade",
-      image: "/images/portfolio/spot.svg",
+      image: SpotImage,
       path: "/trade/spot",
     },
     {
       title: "Perpetual",
       description: "Up to 200x leverage with top-level liquidity.",
       cta: "Trade",
-      image: "/images/portfolio/perpetual.svg",
+      image: PerpetualImage,
       path: "/trade/perpetual",
     },
     {
       title: "Copy Trading",
       description: "Follow professional traders to earn with ease.",
       cta: "Trade",
-      image: "/images/portfolio/copy-trading.svg",
+      image: CopyTradingImage,
       path: "/trade/copy-trading",
     },
   ];

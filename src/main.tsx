@@ -23,6 +23,15 @@ import { IdentityVerificationPage } from "./pages/profile/IdentityVerificationPa
 import { ReferralProgramPage } from "./pages/profile/ReferralProgramPage";
 import { PromoCodesPage } from "./pages/profile/PromoCodesPage";
 import { StakingPage } from "./pages/StakingPage";
+import { EarnPage } from "./pages/EarnPage";
+import { AboutUsPage } from "./pages/AboutUsPage";
+import { ChannelVerificationPage } from "./pages/ChannelVerificationPage";
+import { BugBountyPage } from "./pages/BugBountyPage";
+import { CorporateIdentityPage } from "./pages/CorporateIdentityPage";
+import { InstitutionalServicesPage } from "./pages/InstitutionalServicesPage";
+import { FeesPage } from "./pages/FeesPage";
+import { MarketsPage } from "./pages/MarketsPage";
+import { TradingPage } from "./pages/TradingPage";
 
 const router = createBrowserRouter([
   {
@@ -112,11 +121,41 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "trading",
+        element: <TradingPage />,
+      },
+      {
+        path: "markets",
+        element: <MarketsPage />,
+      },
+      {
         path: "staking",
         element: <StakingPage />,
       },
       {
-      }
+        path: "earn",
+        element: <EarnPage />,
+      },
+      {
+        path: "about-us",
+        element: <AboutUsPage />,
+      },
+      {
+        path: "fees",
+        element: <FeesPage />,
+      },
+      {
+        path: "bug-bounty",
+        element: <BugBountyPage />,
+      },
+      {
+        path: "corporate-identity",
+        element: <CorporateIdentityPage />,
+      },
+      {
+        path: "institutional-services",
+        element: <InstitutionalServicesPage />,
+      },
     ],
   },
   // {

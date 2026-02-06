@@ -1,0 +1,72 @@
+{
+  
+    "BTC": {
+      "overall": 1.25432,
+      "main": 0.85432,
+      "trade": 0.4,
+      "collateral": 0.0
+    },
+    "ETH": {
+      "overall": 15.42,
+      "main": 10.0,
+      "trade": 5.42,
+      "collateral": 2.1
+    },
+    "USDT": {
+      "overall": 5420.5,
+      "main": 2000.0,
+      "trade": 3420.5,
+      "collateral": 500.0
+    },
+    "BNB": { "overall": 8.45, "main": 5.0, "trade": 3.45, "collateral": 0.0 },
+    "SOL": {
+      "overall": 120.0,
+      "main": 50.0,
+      "trade": 70.0,
+      "collateral": 15.0
+    },
+    "XRP": {
+      "overall": 2500.0,
+      "main": 2500.0,
+      "trade": 0.0,
+      "collateral": 0.0
+    },
+    "DOGE": {
+      "overall": 15000.0,
+      "main": 10000.0,
+      "trade": 5000.0,
+      "collateral": 0.0
+    },
+    "TON": { "overall": 45.0, "main": 45.0, "trade": 0.0, "collateral": 0.0 },
+    "TRX": {
+      "overall": 850.0,
+      "main": 850.0,
+      "trade": 0.0,
+      "collateral": 0.0
+    },
+    "ADA": {
+      "overall": 1200.0,
+      "main": 1200.0,
+      "trade": 0.0,
+      "collateral": 0.0
+    },
+    "AVAX": {
+      "overall": 12.5,
+      "main": 10.0,
+      "trade": 2.5,
+      "collateral": 0.0
+    },
+    "SHIB": {
+      "overall": 50000000.0,
+      "main": 50000000.0,
+      "trade": 0.0,
+      "collateral": 0.0
+    },
+    "DOT": { "overall": 88.0, "main": 88.0, "trade": 0.0, "collateral": 0.0 },
+    "PEPE": {
+      "overall": 12000000.0,
+      "main": 12000000.0,
+      "trade": 0.0,
+      "collateral": 0.0
+    }
+}
