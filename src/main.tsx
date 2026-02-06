@@ -156,6 +156,10 @@ const router = createBrowserRouter([
         path: "institutional-services",
         element: <InstitutionalServicesPage />,
       },
+      {
+        path: "channel-verification",
+        element: <ChannelVerificationPage />,
+      },
     ],
   },
   // {
