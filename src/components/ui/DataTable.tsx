@@ -164,7 +164,7 @@ export function DataTable<T extends Record<string, any>>({
               currentData.map((item, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className="border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors"
+                  className="border-b border-gray-100 cursor-pointer hover:bg-primary/10"
                 >
                   {columns.map((column, colIndex) => (
                     <td
