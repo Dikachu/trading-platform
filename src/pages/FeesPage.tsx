@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { DataTable, type Column } from "@/components/ui/DataTable";
-import cryptoData from "@/data/cryptoData.json";
+import { useCoins } from "@/hooks/useCoins";
+import Loader from "@/components/ui/Loader";
 
 // Helper function to generate min deposit based on price
 const getMinDeposit = (symbol: string, price: number) => {
@@ -31,7 +32,7 @@ const getMinDeposit = (symbol: string, price: number) => {
 };
 
 interface CryptoFee {
-  id: number;
+  id: string;
   symbol: string;
   name: string;
   icon: string;
@@ -40,13 +41,15 @@ interface CryptoFee {
 }
 
 export function FeesPage() {
+  const {coins, loading} = useCoins();
+
   // Transform crypto data to include fee information
-  const cryptoFees: CryptoFee[] = cryptoData.coins.slice(1,20).map((crypto) => ({
+  const cryptoFees: CryptoFee[] = coins.slice(1,20).map((crypto) => ({
     id: crypto.id,
     symbol: crypto.symbol,
     name: crypto.name,
-    icon: crypto.icon,
-    minDeposit: getMinDeposit(crypto.symbol, crypto.price),
+    icon: crypto.image,
+    minDeposit: getMinDeposit(crypto.symbol, crypto.current_price),
     depositFee: "1.0%",
   }));
 
@@ -105,6 +108,7 @@ export function FeesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 md:py-12">
+      {loading && <Loader />}
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="mb-8 md:mb-12">

@@ -5,7 +5,8 @@ import { DataTable, type Column } from "@/components/ui/DataTable";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { CryptoSelector, type CryptoOption } from "@/components/ui/CryptoSelector";
-import cryptoData from "@/data/cryptoData.json";
+import { useCoins } from "@/hooks/useCoins";
+import Loader from "@/components/ui/Loader";
 
 type OrderType = "limit" | "market" | "trigger";
 
@@ -42,11 +43,12 @@ interface Trade {
 }
 
 export function TradingPage() {
+  const {coins, loading} = useCoins()
   // Convert crypto data to CryptoOption format
-  const cryptoOptions: CryptoOption[] = cryptoData.coins.map((coin) => ({
+  const cryptoOptions: CryptoOption[] = coins.map((coin) => ({
     symbol: coin.symbol,
     name: coin.name,
-    icon: coin.icon,
+    icon: coin.image,
   }));
 
   const [selectedCrypto, setSelectedCrypto] = useState<CryptoOption>(
@@ -78,15 +80,15 @@ export function TradingPage() {
   const [triggerSellSize, setTriggerSellSize] = useState("");
 
   // Get market stats for selected crypto
-  const selectedCoinData = cryptoData.coins.find(
+  const selectedCoinData = coins.find(
     (coin) => coin.symbol === selectedCrypto.symbol,
   );
 
   const marketStats = {
-    price: selectedCoinData?.price.toFixed(2) || "0",
-    change24h: selectedCoinData?.change24h.toFixed(2) || "0",
-    high24h: (selectedCoinData ? selectedCoinData.price * 1.06 : 0).toFixed(2),
-    low24h: (selectedCoinData ? selectedCoinData.price * 0.94 : 0).toFixed(2),
+    price: selectedCoinData?.current_price.toFixed(2) || "0",
+    change24h: selectedCoinData?.price_change_percentage_24h.toFixed(2) || "0",
+    high24h: (selectedCoinData ? selectedCoinData.high_24h * 1.06 : 0).toFixed(2),
+    low24h: (selectedCoinData ? selectedCoinData.low_24h * 0.94 : 0).toFixed(2),
     volume24hBTC: "26.44",
     volume24hUSDT: "205,767,110.00",
   };
@@ -282,6 +284,8 @@ export function TradingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {loading && <Loader/>}
+
       {/* Market Header */}
       <div className="bg-gray-950 border-b border-gray-800 px-3 md:px-6 py-4">
         <div className="flex flex-col gap-4">

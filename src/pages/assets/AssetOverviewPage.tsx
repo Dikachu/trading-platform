@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Download, Loader } from "lucide-react";
+import { Download } from "lucide-react";
 import { DataTable, type Column } from "@/components/ui/DataTable";
 import { CryptoIconWithLabel } from "@/components/ui/CryptoIconWithLabel";
 import { Button } from "@/components/ui/Button";
@@ -8,10 +8,11 @@ import type { Asset } from "@/types/types";
 import { useAssets } from "@/hooks/useAssets";
 import { useCoins } from "@/hooks/useCoins";
 import balances from "@/data/balances.json";
+import Loader from "@/components/ui/Loader";
 
 
 export default function AssetOverviewPage() {
-  const {coins, loading} = useCoins();
+  const { coins, loading } = useCoins();
   const assets: Asset[] = useAssets({ coins, balances });
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -38,11 +39,6 @@ export default function AssetOverviewPage() {
       return 0;
     });
   }, [assets]);
-  
-
-  if (loading) {
-    return <Loader />;
-  };
 
   const columns: Column<Asset>[] = [
     {
@@ -123,6 +119,10 @@ export default function AssetOverviewPage() {
       className: "text-right",
     },
   ];
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
